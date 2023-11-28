@@ -1,0 +1,31 @@
+
+
+service: momnet
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+plugins:
+  - serverless-prune-plugin
+  - serverless-offline
+  - serverless-plugin-include-dependencies
+
+package:
+  excludeDevDependencies: false
+  exclude:
+    - node_modules/**
+custom:
+  prune:
+    automatic: true
+    number: 1
+
+functions:
+  GetMoment:
+    handler: handler.GetMoment
+    events: 
+      - httpApi:
+          path: /GetMoment
+          method: get
